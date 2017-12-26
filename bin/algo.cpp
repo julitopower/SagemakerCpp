@@ -27,6 +27,10 @@ int main(int argc, char** argv)
     std::cout << file << std::endl;
   }
 
+  // Let's read the hyperparameters
+  auto hp = sm::get_hyperparameters();
+  std::cout << hp << std::endl;
+
   sm::report_success();
   std::stringstream message{};
   message << "This is my model message";

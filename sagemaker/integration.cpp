@@ -2,6 +2,7 @@
 #include <string>
 
 #include "Config.hpp"
+#include "config_helper.hpp"
 #include "integration.hpp"
 
 
@@ -23,5 +24,14 @@ namespace sm {
     std::ofstream model{std::string{config.model_path} + name};
     model << content.rdbuf();
   }
-  
+
+  Hyperparameters get_hyperparameters() {
+    sm::Config config{};
+    sm::ConfigHelper configHelper{config.hp_file_path};
+
+    Hyperparameters hp;
+    hp.feature_dim = configHelper.get_int("feature_dim", 0);
+    hp.learning_rate = configHelper.get_double("learning_rate", 0.01d);
+    return hp;
+  }  
 }
