@@ -9,6 +9,7 @@ namespace sm {
   void report_success() {
     sm::Config config{};
     std::ofstream completed {std::string{config.output_path} + "completed"};
+    completed << "OK";
   }
 
   void resport_failure(const std::string& message) {
