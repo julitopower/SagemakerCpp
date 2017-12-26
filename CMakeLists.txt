@@ -9,8 +9,11 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(
+  thirdparty/rapidjson/include/
   sagemaker/include/
 )
+
+enable_testing()
 
 add_subdirectory(sagemaker)
 add_subdirectory(bin)
