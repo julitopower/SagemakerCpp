@@ -33,3 +33,6 @@
 
 # Emacs buffer files
 *~
+
+# CMake build folder
+build/

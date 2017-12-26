@@ -10,7 +10,7 @@ RUN yum -y install docker
 RUN mkdir -p /opt/staging/
 ADD ./ /opt/staging/sagemaker
 WORKDIR /opt/staging/sagemaker
-RUN mkdir -p build && cd build && cmake .. && make && make test \
+RUN rm -rf build && mkdir -p build && cd build && cmake .. && make && make test \
     && make install && cd .. && cp /usr/local/bin/algo ./
 WORKDIR /opt/staging/sagemaker
 
