@@ -1,0 +1,14 @@
+################################################################################
+# This is the build image Dockerfile. Note that as part of this build, the 
+# actual algorithm code gets compiled.
+################################################################################
+FROM amazonlinux
+
+# Install all packages necesary to build and create docker images
+RUN yum -y groupinstall "Development Tools" && yum -y install cmake \
+    && gcc --version && yum -y install docker
+
+# Prepare the staging area to build the SDK and the algorithm project
+RUN mkdir -p /opt/staging/ && mkdir -p /opt/stating/project \
+    mkdir -p /opt/staging/sagemaker
+

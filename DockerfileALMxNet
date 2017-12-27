@@ -1,0 +1,22 @@
+################################################################################
+# This is the build image Dockerfile. Note that as part of this build, the 
+# actual algorithm code gets compiled.
+################################################################################
+FROM al_build
+
+# Install OpenCV
+WORKDIR /opt/staging
+RUN git clone https://github.com/Itseez/opencv.git
+RUN cd opencv && mkdir build && cd build && cmake .. && make -j $(nproc) && make install 
+
+RUN yum -y install openblas-devel lapack-devel
+
+# Download and build MxNet http://mxnet.incubator.apache.org/
+WORKDIR /opt/staging
+ENV PKG_CONFIG_PATH /usr/local/lib64/pkgconfig:${PKG_CONFIG_PATH}
+RUN git clone --recursive https://github.com/apache/incubator-mxnet 
+ENV CPLUS_INCLUDE_PATH /usr/include/openblas/:/usr/local/include/:${CPLUS_INCLUDE_PATH} 
+ENV LD_LIBRARY_PATH /usr/local/lib64/:${LD_LIBRARY_PATH}
+RUN cd incubator-mxnet && make -j $(nproc) -I /usr/include/openblas/ USE_OPENCV=1 \
+    USE_BLAS=openblas USE_LAPACK=1 USE_CPP_PACKAGE=1
+

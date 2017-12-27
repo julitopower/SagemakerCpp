@@ -13,6 +13,27 @@ The toy example does the following:
 * It generates a dummy model file, which in this case is just a text file
 * Completes succesfully
 
+# Generating build images
+
+This project is able to create 2 different build images. One is a base AmazonLinux with GCC, the other includes:
+
+* openblas
+* lapack
+* opencv
+* MxNet
+
+To generate the AmazonLinux build image execute:
+
+```bash
+./generate-build-image.sh al
+```
+
+To generate the AmazonLinux + MxNet build image execute:
+
+```bash
+./generate-build-image.sh al-mxnet
+```
+
 ## Building the example container
 
 Simply execute **build_rt_images.sh** passing as an argument the name of the algorithm image that will be generated. For example:
@@ -21,7 +42,7 @@ Simply execute **build_rt_images.sh** passing as an argument the name of the alg
 ./build_rt_images.sh ./example_algo 1234123456.dkr.ecr.us-west-2.amazonaws.com/development
 ```
 
-This will generate two images. One is simply called build_image, and it is not meant to be pushed to ECR. The second one is the runtime one, and will be named with the argument passed to the command. The runtime image is the one you should push to ECR. To push to ECR using the aws cli execute the following:
+This will generate two images. One is simply called _al_build_, and it is not meant to be pushed to ECR. The second one is the runtime one, and will be named with the argument passed to the command. The runtime image is the one you should push to ECR. To push to ECR using the aws cli execute the following:
 
 ```bash
 $(aws ecr get-login --no-include-email --region us-west-2)
