@@ -1,9 +1,9 @@
 #include <fstream>
 #include <string>
 
-#include "Config.hpp"
-#include "config_helper.hpp"
-#include "integration.hpp"
+#include "sagemaker/Config.hpp"
+#include "sagemaker/config_helper.hpp"
+#include "sagemaker/integration.hpp"
 
 
 namespace sm {

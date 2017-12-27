@@ -5,7 +5,7 @@
 #include <sys/types.h>
 #include <vector>
 
-#include "file_utils.hpp"
+#include "sagemaker/file_utils.hpp"
 
 namespace sm {
   void print_file(const std::string& path) 

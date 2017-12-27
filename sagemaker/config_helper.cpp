@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <rapidjson/document.h>
 #include <rapidjson/schema.h>
-#include <config_helper.hpp>
+#include <sagemaker/config_helper.hpp>
 
 #define GET_KEY(key, def, type)						\
   auto keyc = key.data();						\

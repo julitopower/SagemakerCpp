@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(
-  ${CMAKE_SOURCE_DIR}/../build/include/
+  ${CMAKE_SOURCE_DIR}/include/
 )
 
 link_directories(
