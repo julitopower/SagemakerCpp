@@ -3,9 +3,9 @@
 #include <string>
 #include <vector>
 
-#include "Config.hpp"
-#include "file_utils.hpp"
-#include "integration.hpp"
+#include "sagemaker/Config.hpp"
+#include "sagemaker/file_utils.hpp"
+#include "sagemaker/integration.hpp"
 
 int main(int argc, char** argv)
 {

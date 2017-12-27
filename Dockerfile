@@ -4,14 +4,19 @@
 ################################################################################
 FROM amazonlinux
 
-RUN yum -y groupinstall "Development Tools" && yum -y install cmake && gcc --version
+# Install all packages necesary to build and create docker images
+RUN yum -y groupinstall "Development Tools" && yum -y install cmake \
+    && gcc --version && yum -y install docker
 
-RUN yum -y install docker
-RUN mkdir -p /opt/staging/
+# Prepare the staging area to build the SDK and the algorithm project
+RUN mkdir -p /opt/staging/ && mkdir -p /opt/stating/project
 ADD ./ /opt/staging/sagemaker
-WORKDIR /opt/staging/sagemaker
-RUN rm -rf build && mkdir -p build && cd build && cmake .. && make && make test \
-    && make install && cd .. && cp /usr/local/bin/algo ./
-WORKDIR /opt/staging/sagemaker
 
-ENTRYPOINT ["./build.sh"]
+# Build the SDK
+WORKDIR /opt/staging/sagemaker
+RUN rm -rf build && mkdir -p build && cd build && \
+    cmake .. && make && make test && make install 
+
+# Set CWD to the location where the algorithm code will be 
+# mounted
+WORKDIR /opt/staging/project

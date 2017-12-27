@@ -4,6 +4,6 @@
 ################################################################################
 FROM amazonlinux
 
-ADD algo /usr/bin/algo
+ADD build/bin/algo /usr/bin/algo
 
 ENTRYPOINT ["algo"]
