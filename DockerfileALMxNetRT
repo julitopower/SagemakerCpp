@@ -2,8 +2,6 @@
 # This is the runtime image Dockerfile. It simply contains the artifacts built
 # by the build image, and defines a suitable entrypoint
 ################################################################################
-FROM amazonlinux_mxnet
+FROM amazonlinux
 
-ADD build/bin/algo /usr/bin/algo
-
-ENTRYPOINT ["algo"]
+ADD ./libs/* /usr/lib64/
