@@ -1,0 +1,3 @@
+[submodule "example_mlp_mxnet/LearnMachineLearning"]
+	path = example_mlp_mxnet/LearnMachineLearning
+	url = https://github.com/julitopower/LearnMachineLearning.git
