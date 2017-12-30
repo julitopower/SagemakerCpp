@@ -1,7 +1,7 @@
 set(SRC algo.cpp)
 
 add_executable(algo ${SRC})
-target_link_libraries(algo sagemaker mxnet)
+target_link_libraries(algo sagemaker ${MxNet_LIB})
 
 install(TARGETS algo
         RUNTIME DESTINATION bin

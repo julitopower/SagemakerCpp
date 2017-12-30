@@ -19,3 +19,6 @@ ENV CPLUS_INCLUDE_PATH /usr/include/openblas/:/usr/local/include/:${CPLUS_INCLUD
 ENV LD_LIBRARY_PATH /usr/local/lib64/:${LD_LIBRARY_PATH}
 RUN cd incubator-mxnet && make -j $(nproc) -I /usr/include/openblas/ USE_OPENCV=1 \
     USE_BLAS=openblas USE_LAPACK=1 USE_CPP_PACKAGE=1
+
+# Set the MXNET_ROOT to help the build system find headers and libraries
+ENV MXNET_ROOT /opt/staging/incubator-mxnet/

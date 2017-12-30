@@ -1,3 +1,6 @@
 [submodule "example_mlp_mxnet/LearnMachineLearning"]
 	path = example_mlp_mxnet/LearnMachineLearning
 	url = https://github.com/julitopower/LearnMachineLearning.git
+[submodule "example_mlp_mxnet/cmake/Modules"]
+	path = example_mlp_mxnet/cmake/Modules
+	url = https://github.com/julitopower/FindMxNet.git

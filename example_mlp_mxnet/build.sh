@@ -18,3 +18,4 @@ cp /usr/lib64/libquadmath.so.0 ./libs
 cp /usr/lib64/libblas.so.3 ./libs
 docker build . -f Dockerfile -t $1
 rm -rf ./libs
+rm -rf /opt/staging/project/build

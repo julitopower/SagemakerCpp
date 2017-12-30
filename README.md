@@ -2,9 +2,11 @@
 
 Tools and code to integrate C++ into AWS Sagemaker Machine Learning Platform
 
-# Toy example
+# Examples
 
-This project contains a toy example of a fully functional algorithm container. The code does not execute any machine learning algorithm, but demonstrates that the container generated is fully functional within the Sagemaker training infrastructure.
+## Toy example
+
+A toy example of a fully functional algorithm container. The code does not execute any machine learning algorithm, but demonstrates that the container generated is fully functional within the Sagemaker training infrastructure.
 
 The toy example does the following:
 
@@ -13,7 +15,20 @@ The toy example does the following:
 * It generates a dummy model file, which in this case is just a text file
 * Completes succesfully
 
-# Generating build images
+## MxNet based Multilayer Perceptron (MLP)
+
+TODO
+
+# Images
+
+This project uses and/or generates 4 types of base images
+
+* amazonlinux : To be used as the base for runtime images that do not require MxNet
+* amazonlinux + mxnet dependencies : To be used as the base for runtime images that require MxNet
+* amazonlinux + build tools : To be used as the build image for algorithms that do not require MxNet
+* amazonlinux + build tools + mxnet code and dependencies : To be used as the build image for algorithms that require MxNet
+
+## Generating build images
 
 This project is able to create 2 different build images. One is a base AmazonLinux with GCC, the other includes:
 
@@ -34,15 +49,32 @@ To generate the AmazonLinux + MxNet build image execute:
 ./generate-build-image.sh al-mxnet
 ```
 
-## Building the example container
+## Generating base runtime images
 
-Simply execute **build_rt_images.sh** passing as an argument the name of the algorithm image that will be generated. For example:
+For amazonlinux nothing needs to be done. To build the amazonlinux + mxnet dependencies image, execute the following commands:
 
 ```bash
-./build_rt_images.sh ./example_algo 1234123456.dkr.ecr.us-west-2.amazonaws.com/development
+./generate-build-image.sh al-mxnet
+./generate-runtime-mxnet-image.sh
 ```
 
-This will generate two images. One is simply called _al_build_, and it is not meant to be pushed to ECR. The second one is the runtime one, and will be named with the argument passed to the command. The runtime image is the one you should push to ECR. To push to ECR using the aws cli execute the following:
+# Building the example containers
+
+## Toy example
+
+First build the amazonlinux build image
+
+```bash
+./generate-build-image.sh al
+```
+
+and then simply execute **build_rt_images.sh** passing as arguments the build image, the directory containing the algoritm code, and the name of the algorithm image that will be generated:
+
+```bash
+./build_rt_images.sh ak_build ./example_algo 1234123456.dkr.ecr.us-west-2.amazonaws.com/development
+```
+
+This generated runtime image is the one you should push to ECR. To push to ECR using the aws cli execute the following:
 
 ```bash
 $(aws ecr get-login --no-include-email --region us-west-2)
@@ -53,6 +85,10 @@ Now you can go to the Sagemaker console and create a training job. Upon completi
 
 * Cloudwatch logs with printouts of resource files and a list of files in the S3 bucket passed as train
 * An S3 model file containing a text file
+
+## MLP
+
+TODO
 
 ## Creating a new algorithm
 

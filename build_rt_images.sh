@@ -9,12 +9,10 @@
 #
 ################################################################################
 
-ROOT_DIR=$(readlink -f $1)
+BUILD_IMG_NAME=$1
+ROOT_DIR=$(readlink -f $2)
 SDK_DIR=$(readlink -f ./)
-IMG=$2
-
-BUILD_IMG_NAME=al_mxnet_build
-docker build . -f DockerfileALMxNet -t ${BUILD_IMG_NAME}
+IMG=$3
 
 # Note how the socket to communicate with the external docker daemon is passed
 # to the container. This enables the container to create images in the host
