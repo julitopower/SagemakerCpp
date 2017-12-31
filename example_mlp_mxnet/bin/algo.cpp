@@ -1,14 +1,12 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
-#include <stdexcept>
 
-#include "sagemaker/Config.hpp"
-#include "sagemaker/config_helper.hpp"
-#include "sagemaker/file_utils.hpp"
-#include "sagemaker/integration.hpp"
+#include "sagemaker/sagemaker.hpp"
+
 #include "mlp.hpp"
 
 
@@ -60,6 +58,9 @@ namespace {
 
 int main(int argc, char** argv)
 {
+  // Initialize signal handlers
+  sm::install_signal_handlers();
+
   // Print relevant information
   sm::Config config{};
   // Print a few of the interesting locations in the input

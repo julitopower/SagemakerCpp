@@ -1,4 +1,9 @@
-set(SRC file_utils.cpp integration.cpp config_helper.cpp)
+set(SRC
+  file_utils.cpp
+  integration.cpp
+  config_helper.cpp
+  signals.cpp
+  )
 
 add_library(sagemaker ${SRC})
 

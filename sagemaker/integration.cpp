@@ -13,7 +13,7 @@ namespace sm {
     completed << "OK";
   }
 
-  void resport_failure(const std::string& message) {
+  void report_failure(const std::string& message) {
     sm::Config config{};
     std::ofstream failure{std::string{config.failure_file_path}};
     failure << message;
