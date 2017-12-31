@@ -5,6 +5,7 @@ set(HDRS
   sagemaker/hyperparameters.hpp
   sagemaker/integration.hpp
   sagemaker/signals.hpp
+  sagemaker/sagemaker.hpp
 )
 
 install(FILES ${HDRS}
