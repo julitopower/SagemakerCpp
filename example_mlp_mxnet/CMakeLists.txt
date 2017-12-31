@@ -21,11 +21,12 @@ include_directories(
   /usr/local/cuda-8.0/include
   ${MxNet_INCLUDE_DIRS}
   ${CMAKE_CURRENT_SOURCE_DIR}/../include/
+  ${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/rapidjson/include/
   ${CMAKE_CURRENT_SOURCE_DIR}/LearnMachineLearning/cpp/mlp_cpu
   )
 
 link_directories(
-  ${CMAKE_CURRENT_SOURCE_DIR}/../build/sagemaker
+  ${CMAKE_CURRENT_SOURCE_DIR}/../build/sagemaker/
   /usr/local/lib64
 )
 

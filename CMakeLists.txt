@@ -19,4 +19,5 @@ enable_testing()
 
 add_subdirectory(sagemaker)
 add_subdirectory(include)
+add_subdirectory(thirdparty/rapidjson)
 add_subdirectory(tst)
