@@ -12,6 +12,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/rapidjson/include/
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/cpp-httplib/
   ${CMAKE_CURRENT_SOURCE_DIR}/include/
 )
 
