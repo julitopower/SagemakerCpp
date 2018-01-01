@@ -9,7 +9,6 @@
 
 #include "mlp.hpp"
 
-
 namespace {
   struct Hyperparameters {
     std::uint32_t feature_dim;
@@ -120,7 +119,8 @@ int main(int argc, char** argv)
   mlp.fit(train_data,  train_labels, test_data, test_labels);
 
   /* Save model to model directory */
-
+  mlp.save_model(config.model_path);
+  
   sm::report_success();
   std::stringstream message{};
   message << "This is my model message";
