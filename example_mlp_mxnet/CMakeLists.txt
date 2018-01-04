@@ -15,14 +15,15 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Set include and link directories
-add_definitions(-DMSHADOW_USE_CBLAS -DMSHADOW_USE_SSE=0 -Wall)
+add_definitions(-DMSHADOW_USE_CBLAS -DMSHADOW_USE_SSE=0)
 set(MXNET_ROOT /home/ec2-user/environment/source/incubator-mxnet/ CACHE STRING "mxnet")
 include_directories(
   /usr/local/cuda-8.0/include
   ${MxNet_INCLUDE_DIRS}
   ${CMAKE_CURRENT_SOURCE_DIR}/../include/
   ${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/rapidjson/include/
-  ${CMAKE_CURRENT_SOURCE_DIR}/LearnMachineLearning/cpp/mlp_cpu
+  ${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/cpp-httplib/  
+  ${CMAKE_CURRENT_SOURCE_DIR}/LearnMachineLearning/cpp/mlp_cpu/
   )
 
 link_directories(

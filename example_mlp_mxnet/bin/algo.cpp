@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "sagemaker/sagemaker.hpp"
+#include <httplib.h>
 
 #include "mlp.hpp"
 
@@ -54,11 +55,57 @@ namespace {
   }
 }
 
+void serve() {
+  using namespace httplib;
+  // https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html
+  // Create server object
+  Server srv;
+
+  // Install signal handler for SIGTERM. Pass server
+  // to handler, so that it can stop it when the time
+  // comes
+  
+  // Register handlers
+  srv.get("/ping", [](const Request& req, Response& res) {
+      res.status = 200;
+      res.body = "OK";
+    });
+
+  srv.post("/invocations", [](const Request& req, Response& res) {
+      std::cout << "Invocations called" << std::endl;
+      Mlp algo{sm::Config{}.model_path};
+
+      //  Here we need to get the body of the request and
+      //  dump or wrap it in a file like object.
+      std::cout << req.body << std::endl;
+      // And finally we call predict
+
+      // If everything went well we return results here
+      res.status = 200;
+      res.body = "this hould be CSV";
+    });  
+
+
+  // Start loop
+  srv.listen("localhost", 8080);
+}
 
 int main(int argc, char** argv)
 {
   // Initialize signal handlers
   sm::install_signal_handlers();
+
+  // Sagemaker calls us with one argument, but we
+  // will assume default is train
+  std::string mode {"train"};
+  if (argc == 2) {
+    mode = std::string{argv[1]};
+  }
+
+  if (mode == "serve") {
+    serve();
+    return 0;
+  }
 
   // Print relevant information
   sm::Config config{};
@@ -122,10 +169,6 @@ int main(int argc, char** argv)
   mlp.save_model(config.model_path);
   
   sm::report_success();
-  std::stringstream message{};
-  message << "This is my model message";
-  sm::write_model("model_file.txt", message);
-
   std::cout << "Finished" << std::endl;
   return 0;
 }
