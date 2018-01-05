@@ -6,4 +6,4 @@ FROM amazonlinux_mxnet
 
 ADD build/bin/algo /usr/bin/algo
 
-ENTRYPOINT ["algo"]
+#ENTRYPOINT ["algo"]

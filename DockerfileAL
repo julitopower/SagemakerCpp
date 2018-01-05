@@ -2,14 +2,14 @@
 # This is the build image Dockerfile. Note that as part of this build, the 
 # actual algorithm code gets compiled.
 ################################################################################
-FROM gcc
+FROM gcc:5
 
-RUN apt-get -y update; apt-get -y install apt-utils; \
-    apt-get -y install apt-transport-https dirmngr; \
-    echo 'deb https://apt.dockerproject.org/repo debian-stretch main' >> /etc/apt/sources.list; \
-    apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D ; \
-    apt-get -y update ; apt-get -y install docker-engine --allow-unauthenticated; \
-    apt-get -y install cmake
+RUN apt-get -y update; apt-get -y install apt-utils; apt-get -y install cmake
+
+RUN apt-get -y update ; apt-get install -y apt-transport-https ca-certificates wget software-properties-common;\
+    wget https://download.docker.com/linux/debian/gpg; \ 
+    apt-key add gpg ; echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee -a /etc/apt/sources.list.d/docker.list; \
+    apt-get -y update ; apt-cache policy docker-ce ; apt-get -y install docker-ce
 
 # Prepare the staging area to build the SDK and the algorithm project
 RUN mkdir -p /opt/staging/ && mkdir -p /opt/stating/project \
