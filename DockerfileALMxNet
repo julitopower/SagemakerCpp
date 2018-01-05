@@ -4,12 +4,15 @@
 ################################################################################
 FROM al_build
 
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN update-alternatives --install /usr/bin/gfortran gfortran /usr/local/bin/gfortran 999
+RUN apt-get -y install gfortran ; apt-get -y install libopenblas-dev liblapack-dev
+
 # Install OpenCV
 WORKDIR /opt/staging
 RUN git clone https://github.com/Itseez/opencv.git
 RUN cd opencv && mkdir build && cd build && cmake .. && make -j $(nproc) && make install 
-
-RUN yum -y install openblas-devel lapack-devel
 
 # Download and build MxNet http://mxnet.incubator.apache.org/
 WORKDIR /opt/staging
