@@ -64,11 +64,18 @@ void serve() {
   // Install signal handler for SIGTERM. Pass server
   // to handler, so that it can stop it when the time
   // comes
-  
+
   // Register handlers
   srv.get("/ping", [](const Request& req, Response& res) {
+      std::cout << "Ping request received " << req.path << std::endl;
+      res.status = 200;
+
+    });
+
+  srv.get("/stop", [&](const Request& req, Response& res) {
       res.status = 200;
       res.body = "OK";
+      srv.stop();
     });
 
   srv.post("/invocations", [](const Request& req, Response& res) {
@@ -83,15 +90,23 @@ void serve() {
       // If everything went well we return results here
       res.status = 200;
       res.body = "this hould be CSV";
-    });  
+    });
 
+  srv.get("/.*", [](const Request& req, Response& res) {
+      std::cout << "Request received " << req.path << std::endl;
+      res.status = 200;
+
+    });
 
   // Start loop
-  srv.listen("localhost", 8080);
+  std::cout << "Handlers registered, starting server" << std::endl;
+  srv.listen("0.0.0.0", 8080);
 }
 
 int main(int argc, char** argv)
 {
+
+  std::cout << "Starting execution" << std::endl;
   // Initialize signal handlers
   sm::install_signal_handlers();
 
@@ -102,7 +117,16 @@ int main(int argc, char** argv)
     mode = std::string{argv[1]};
   }
 
+  // Print relevant information
   if (mode == "serve") {
+    sm::Config config{};
+    std::cout << "Serve mode" << std::endl;
+    std::vector<std::string> files{};
+    sm::read_directory(config.model_path, files);
+
+    for(const auto& file : files)  {
+      std::cout << file << std::endl;
+    }
     serve();
     return 0;
   }
@@ -167,7 +191,7 @@ int main(int argc, char** argv)
 
   /* Save model to model directory */
   mlp.save_model(config.model_path);
-  
+
   sm::report_success();
   std::cout << "Finished" << std::endl;
   return 0;
