@@ -15,7 +15,15 @@ cp /usr/lib/liblapack* ./libs
 cp /usr/local/lib64/libgfortran.so.3 ./libs
 cp /usr/local/lib64/libquadmath.so.0 ./libs
 cp /usr/lib/libblas.so.3 ./libs
-
+cp /usr/lib/x86_64-linux-gnu/libgthread-2.0.so.0 ./libs
+cp /usr/lib/x86_64-linux-gnu/libglib-2.0.so ./libs/libglib-2.0.so.0
+cp /usr/lib/x86_64-linux-gnu/libjpeg.so.62 ./libs
+cp /usr/lib/x86_64-linux-gnu/libwebp.so.5 ./libs
+cp /usr/lib/x86_64-linux-gnu/libpng12.so.0 ./libs
+cp /usr/lib/x86_64-linux-gnu/libtiff.so.5 ./libs
+cp /usr/lib/x86_64-linux-gnu/libjasper.so.1 ./libs
+cp /usr/lib/x86_64-linux-gnu/libI* ./libs
+cp /usr/lib/x86_64-linux-gnu/lib* ./libs
 # Build the image. The images will copy the contents of 
 # /opt/staging/libs to /usr/lib/
 docker build . -f DockerfileALMxNetRT -t amazonlinux_mxnet
